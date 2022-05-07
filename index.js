@@ -1,15 +1,10 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars')
+const random = require('./lib/random')
 
 const PORT = 8000
 
 const app = express()
-
-const randArr = [
- 'Раз',
- 'Два',
- 'Три'
-]
 
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
@@ -20,11 +15,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', (req, res) => { res.render('home') })
 app.get('/about', (req, res) => { 
-    let random = Math.random();
-    console.log(random);
-    const randomEl = randArr[Math.floor(random*randArr.length)]
-    
-    res.render('about', { rnd: randomEl }) 
+    res.render('about', { rnd: random.getRandom() }) 
 })
 
 app.use((req, res) => {
