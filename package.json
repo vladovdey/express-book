@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "lint": "eslint index.js lib --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ovdey",
@@ -15,5 +16,12 @@
     "express-handlebars": "^3.0.2",
     "nodemon": "^2.0.15",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0"
   }
 }
