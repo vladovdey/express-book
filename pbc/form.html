@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="/form-processing?formname=testform" method="POST">
+        <input type="text" name="name">
+        <input type="text" name="email">
+        <input type="submit" value="Отправить">
+    </form>
+    <div class="form-info">
+        <div class="error hidden" style="color: red;">We had error while form data sending</div>
+        <div class="success hidden" style="color: blue">Form data sent successfuly</div>
+    </div>
+</body>
+<script>
+    let form = document.querySelector('form');
+    let errorMsg = document.querySelector('.error');
+    let successMsg = document.querySelector('.success');
+
+    async function sendData(data){
+        try {
+            const response = await fetch('/form-processing?formname=testform', {
+                method: POST,
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const json = await response.json();
+            successMsg.classList.remove('hidden');
+        } catch (err) {
+            errorMsg.classList.remove('hidden');
+        }
+    }
+
+    form.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        let formDataJson = JSON.stringify({
+            name: form.elements.name,
+            email: form.elements.email
+        });
+
+        sendData(formDataJson);
+        
+    });
+</script>
+</html>

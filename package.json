@@ -1,0 +1,19 @@
+{
+  "name": "express-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ovdey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.2",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7"
+  }
+}
