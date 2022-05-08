@@ -1,0 +1,19 @@
+.weather-widget{
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid #333;
+}
+.weather-widget .location{
+    text-align: center;
+    border-bottom: 1px solid #333
+}
+.weather-widget .location:last-of-type{
+    border: none;
+}
+.weather-widget h2{
+    text-align: center;
+}
+.weather-widget img{
+    display: block;
+    margin: 0 auto;
+}

@@ -1,3 +1,36 @@
-<h1>Домашняя страница</h1>
-<img src="/img/logo.png" alt="pswrd">
-{{> weather}}
+<div class="container flex-container flex-between">
+   <div class="main-info">
+      <div class="title">
+         <img src="/img/logo.png" alt="pswrd">
+         <h1>Домашняя страница</h1>
+      </div>
+      <ul class="link-list">
+         <li>
+            <a href="/newsletter-signup">
+               <b>Ссылка на страницу форму</b>
+            </a>
+         </li>
+         <li>
+            <a href="/about">
+               <b>Ссылка на страницу О нас</b>
+            </a>
+         </li>
+
+         <li>
+            <a href="/headers">
+               <b>Ссылка на страницу Заголовки</b>
+            </a>
+         </li>
+
+         <li>
+            <a href="/test-section">
+               <b>Ссылка на страницу Тест</b>
+            </a>
+         </li>
+      </ul>
+
+   </div>
+   <div class="sidebar">
+      {{> weather}}
+   </div>
+</div>

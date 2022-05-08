@@ -1,8 +1,10 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const random = require('./lib/random')
 const weatherMiddlware = require('./lib/middleware/weather')
+const handlers = require('./lib/handlers')
 
 const PORT = 8000
 
@@ -25,26 +27,18 @@ app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'))
 /* eslint-enable n/no-path-concat */
 app.use(weatherMiddlware)
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => { res.render('home') })
 app.get('/about', (req, res) => { res.render('about', { rnd: random.getRandom() }) })
 app.get('/test-section', (req, res) => res.render('test-section'))
-app.get('/headers', (req, res) => {
-  res.type('text/html')
-  const headers = Object.entries(req.headers)
-    .map(([key, value]) => `${key} : ${value} \n`)
-  res.send(headers.join(''))
-})
+app.get('/headers', handlers.headers)
+app.get('/newsletter-signup', handlers.newsletterSignup)
+app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
 
-app.use((req, res) => {
-  res.status(404)
-  res.render('404')
-})
-app.use((err, req, res, next) => {
-  console.log(err.message)
-  res.status(500)
-  res.render('500')
-})
+app.use(handlers.notFound)
+app.use(handlers.serverError)
 
 app.listen(PORT, () => {
   console.log(`Express запущен ${PORT} на порту`)
