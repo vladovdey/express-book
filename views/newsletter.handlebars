@@ -1,0 +1,46 @@
+<h2>Sign up for our newsletter to receive news and specials!</h2>
+<form class="form-horizontal" role="form">
+  <input type="hidden" name="_csrf" value="{{csrf}}">
+  <div class="form-group">
+    <label for="fieldName" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="fieldName" name="name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" required id="fieldEmail" name="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+  </div>
+</form>
+<script>
+  const form = document.querySelector('form')
+  console.log(form)
+  form.addEventListener('submit', event => {
+    event.preventDefault()
+    const body = JSON.stringify({
+      csrf: form.elements._csrf.value,
+      name: form.elements.name.value,
+      email: form.elements.email.value,
+    })
+    const contentType = { 'Content-Type': 'application/json' }
+    fetch('/api/newsletter-signup', { method: 'post', body, headers: contentType})
+    .then(resp => {
+      if(resp.status < 200 || resp.status >= 300)
+        throw new Error (`Запрос отколен со статусом ${resp.status}`)
+      return resp.json()
+    })
+    .then(json => {
+      console.log('Успешно')
+    })
+    .catch(err => {
+      console.log('Ошибка')
+    })
+  })
+</script>
